@@ -1,17 +1,29 @@
-// Uncomment the code below and write your tests
-/* import {  simpleCalculator, Action } from './index';
+import { simpleCalculator, Action } from './index';
 
-const testCases = [
-    { a: 1, b: 2, action: Action.Add, expected: 3 },
-    { a: 2, b: 2, action: Action.Add, expected: 4 },
-    { a: 3, b: 2, action: Action.Add, expected: 5 },
-    // continue cases for other actions    
-]; */
-
-describe('simpleCalculator', () => {
-  // This test case is just to run this test suite, remove it when you write your own tests
-  test('should blah-blah', () => {
-    expect(true).toBe(true);
-  });
-  // Consider to use Jest table tests API to test all cases above
-});
+test.each`
+  a            | b            | action                 | expected
+  ${1}         | ${2}         | ${Action.Add}          | ${3}
+  ${2}         | ${2}         | ${Action.Add}          | ${4}
+  ${3}         | ${2}         | ${Action.Add}          | ${5}
+  ${5}         | ${2}         | ${Action.Subtract}     | ${3}
+  ${2}         | ${5}         | ${Action.Subtract}     | ${-3}
+  ${-5}        | ${-2}        | ${Action.Subtract}     | ${-3}
+  ${3}         | ${2}         | ${Action.Multiply}     | ${6}
+  ${10}        | ${0}         | ${Action.Multiply}     | ${0}
+  ${-3}        | ${-2}        | ${Action.Multiply}     | ${6}
+  ${6}         | ${2}         | ${Action.Divide}       | ${3}
+  ${2}         | ${4}         | ${Action.Divide}       | ${0.5}
+  ${5}         | ${0}         | ${Action.Divide}       | ${Infinity}
+  ${2}         | ${3}         | ${Action.Exponentiate} | ${8}
+  ${10}        | ${0}         | ${Action.Exponentiate} | ${1}
+  ${-2}        | ${3}         | ${Action.Exponentiate} | ${-8}
+  ${1}         | ${2}         | ${'invalid'}           | ${null}
+  ${'invalid'} | ${2}         | ${Action.Add}          | ${null}
+  ${1}         | ${'invalid'} | ${Action.Add}          | ${null}
+`(
+  '$a $action $b = $expected',
+  ({ a, b, action, expected }) => {
+    expect(simpleCalculator({ a, b, action })).toBe(expected);
+  },
+  30000,
+);
