@@ -52,7 +52,7 @@ describe('BankAccount', () => {
   });
 
   test('should transfer money', () => {
-    const initialBalanceA = 100;
+    const initialBalanceA = initialBalance;
     const initialBalanceB = 50;
     const transferAmount = 50;
     const accountA = getBankAccount(initialBalanceA);
@@ -81,10 +81,11 @@ describe('BankAccount', () => {
     const account = getBankAccount(initialBalance);
     // This test depends on fetchBalance succeeding, which makes it flaky.
     // To avoid flakiness, we can mock fetchBalance to return a fixed value.
-    jest.spyOn(account, 'fetchBalance').mockResolvedValueOnce(initialBalance);
+    const newBalance = initialBalance + 50;
+    jest.spyOn(account, 'fetchBalance').mockResolvedValueOnce(newBalance);
 
     await account.synchronizeBalance();
-    expect(account.getBalance()).toBe(initialBalance);
+    expect(account.getBalance()).toBe(newBalance);
   });
 
   test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {

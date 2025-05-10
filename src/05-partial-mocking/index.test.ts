@@ -18,7 +18,6 @@ describe('partial mocking', () => {
   });
 
   test('mockOne, mockTwo, mockThree should not log into console', () => {
-    // Spy on console.log to ensure it's not called by the mocked functions
     const consoleSpy = jest.spyOn(console, 'log');
 
     mockOne();
@@ -27,7 +26,6 @@ describe('partial mocking', () => {
 
     expect(consoleSpy).not.toHaveBeenCalled();
 
-    // Check if they are indeed Jest's mock functions
     expect(jest.isMockFunction(mockOne)).toBe(true);
     expect(jest.isMockFunction(mockTwo)).toBe(true);
     expect(jest.isMockFunction(mockThree)).toBe(true);
