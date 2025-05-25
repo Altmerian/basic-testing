@@ -20,10 +20,6 @@ test.each`
   ${1}         | ${2}         | ${'invalid'}           | ${null}
   ${'invalid'} | ${2}         | ${Action.Add}          | ${null}
   ${1}         | ${'invalid'} | ${Action.Add}          | ${null}
-`(
-  '$a $action $b = $expected',
-  ({ a, b, action, expected }) => {
-    expect(simpleCalculator({ a, b, action })).toBe(expected);
-  },
-  30000,
-);
+`('$a $action $b = $expected', ({ a, b, action, expected }) => {
+  expect(simpleCalculator({ a, b, action })).toBe(expected);
+});
